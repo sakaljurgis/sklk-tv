@@ -13,7 +13,8 @@ plugin.video.sklk): same JSON API (`/api?path=...`), native TV UI and player.
 - **Watched state is shared with Kodi**: the server keeps resume points and watched marks, so
   stopping an episode on Kodi and picking it up here (or the other way round) just works.
 - **Continue watching** (home screen, from the server): unfinished files and the next episode of shows
-  in progress. Playing from there continues with the rest of the season.
+  in progress, for titles played in the last 3 months. Playing from there continues with the rest of
+  the season.
 - **⋯ menu**: hold OK (or press Menu) on an item. Server actions from the api's `contextMenus`
   (mark watched/unwatched — a file, a season or a whole show —, hide from Continue watching, delete
   file, ...) plus play from beginning. Delete-like actions ask for confirmation, with Cancel focused.

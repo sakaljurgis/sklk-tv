@@ -9,12 +9,19 @@ the app's settings and, for builds, in `local.properties` (`sklk.serverUrl`, not
 ## Status (2026-10-12)
 
 - **v0.3** (watch state on the server, shared with the Kodi add-on; server address as a setting) is
-  installed on the user's TV (a Sony BRAVIA, Android TV; it had v0.1 before). The backend is deployed.
+  installed on the user's TV (a Sony BRAVIA, Android TV; it had v0.1 before; adb over the network,
+  `adb mdns services` finds it). The backend is deployed; the Kodi add-on 0.0.25 is installed on the
+  main Kodi and its earlier watched history (~1.4k files) was sent to the server. The shared watch
+  state works end to end; nothing is in progress.
+- Continue watching only has titles played in the last 3 months (server-side, the user's choice:
+  most of the Kodi history is 2023–24). v0.1 history had no dates, so it counts as old.
 - The debug signing key was regenerated on 2026-10-12 (`~/.android` had been deleted), so v0.3 was
   installed after an uninstall (its local history copied out and back with `run-as`, then uploaded);
   later builds install over it with `adb install -r` again.
 - Related repos (sibling checkouts): backend `~/WebstormProjects/kodi-api-server` (pushing `main`
-  deploys it, ~2–5 min), Kodi add-on `~/WebstormProjects/plugin.video.sklk`. Each has its own notes.
+  deploys it, ~2–5 min, and restarts the server — ask first if the user may be using it), Kodi
+  add-on `~/WebstormProjects/plugin.video.sklk` (zip for Kodi: `git archive --prefix=plugin.video.sklk/`).
+  Each has its own notes.
 - Git: `git@github.com:sakaljurgis/sklk-tv.git`.
 
 ## Rules
@@ -120,4 +127,5 @@ work by path; `all` is the old All Files menu. No posters/plots in the API yet.
 - **Player improvements**: findings + suggestions (overlay, seeking, buffer, tracks, chapters/skip
   intro, next-up, ...) in `docs/player-improvements.md` — not started, user to pick what to build.
 - Smaller things: proper release signing (release uses the debug key), possibly newer media3 once a
-  matching FFmpeg decoder exists. Server-side: duplicate releases and `.sample.` files are listed.
+  matching FFmpeg decoder exists. Server-side: duplicate releases and `.sample.` files are listed;
+  "Recently added".
