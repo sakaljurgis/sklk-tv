@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">SKLK TV</string>
+    <string name="search">Search</string>
+    <string name="nothing_here">Nothing here</string>
+    <string name="load_failed">Couldn\'t load: %1$s — press OK to retry</string>
+    <string name="continue_watching">Continue watching</string>
+    <string name="library">Library</string>
+    <string name="settings">Settings</string>
+    <string name="server">Server</string>
+    <string name="server_not_set">Not set — press OK to set it</string>
+    <string name="server_about">The media server\'s address, the same as in the Kodi add-on\'s settings (e.g. https://media.example.com).</string>
+    <string name="server_invalid">Not a server address: %1$s</string>
+    <string name="save">Save</string>
+    <string name="hint_options">Hold OK for more options</string>
+    <string name="time_left">%1$s left</string>
+    <string name="watched">✓ Watched</string>
+    <string name="up_next">Up next</string>
+    <string name="stopped_at">Stopped at %1$s of %2$s</string>
+    <string name="watched_count">%1$d of %2$d watched</string>
+    <plurals name="items_count">
+        <item quantity="one">%d item</item>
+        <item quantity="other">%d items</item>
+    </plurals>
+
+    <string name="menu_play_from_start">Play from beginning</string>
+    <string name="menu_open_folder">Open folder</string>
+    <string name="no_options">No options for this item</string>
+    <string name="confirm_title">%1$s?</string>
+    <string name="confirm_message">%1$s\n\nThis can\'t be undone.</string>
+    <string name="action_done">%1$s: done</string>
+    <string name="action_failed">%1$s failed: %2$s</string>
+
+    <string name="resuming_from">Resuming from %1$s</string>
+    <string name="playback_error">Playback error: %1$s\n%2$s</string>
+</resources>

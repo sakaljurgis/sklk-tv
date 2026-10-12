@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.SklkTv" parent="Theme.Leanback">
+        <item name="android:colorPrimary">@color/background</item>
+        <item name="android:colorAccent">@color/accent</item>
+        <item name="android:windowBackground">@color/background</item>
+    </style>
+
+    <style name="Theme.SklkTv.Player">
+        <item name="android:windowBackground">@android:color/black</item>
+    </style>
+</resources>
