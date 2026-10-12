@@ -8,9 +8,11 @@ the app's settings and, for builds, in `local.properties` (`sklk.serverUrl`, not
 
 ## Status (2026-10-12)
 
-- **v0.2** is installed on the user's TV.
 - **v0.3** (watch state on the server, shared with the Kodi add-on; server address as a setting) is
-  built and tested in the emulator, not on the TV yet. The backend for it is deployed.
+  installed on the user's TV (a Sony BRAVIA, Android TV; it had v0.1 before). The backend is deployed.
+- The debug signing key was regenerated on 2026-10-12 (`~/.android` had been deleted), so v0.3 was
+  installed after an uninstall (its local history copied out and back with `run-as`, then uploaded);
+  later builds install over it with `adb install -r` again.
 - Related repos (sibling checkouts): backend `~/WebstormProjects/kodi-api-server` (pushing `main`
   deploys it, ~2–5 min), Kodi add-on `~/WebstormProjects/plugin.video.sklk`. Each has its own notes.
 - Git: `git@github.com:sakaljurgis/sklk-tv.git`.
