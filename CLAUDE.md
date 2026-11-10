@@ -6,13 +6,15 @@ Android TV app (Kotlin, leanback widgets + Media3/ExoPlayer) for the user's pers
 **Never write the server's address into this repo** (code, docs, commits): it's private. It lives in
 the app's settings and, for builds, in `local.properties` (`sklk.serverUrl`, not in git).
 
-## Status (2026-10-12)
+## Status (2026-11-10)
 
 - **v0.3** (watch state on the server, shared with the Kodi add-on; server address as a setting) is
-  installed on the user's TV (a Sony BRAVIA, Android TV; it had v0.1 before; adb over the network,
-  `adb mdns services` finds it). The backend is deployed; the Kodi add-on 0.0.25 is installed on the
-  main Kodi and its earlier watched history (~1.4k files) was sent to the server. The shared watch
-  state works end to end; nothing is in progress.
+  installed on the user's TV (a Sony BRAVIA, Android TV; it had v0.1 before; adb over the network:
+  `adb connect <tv-ip>:5555`, this adb has no `mdns` command). The backend is deployed. The main Kodi
+  is the one on the same TV: add-on **0.0.26** is installed there (its earlier watched history, ~1.4k
+  files, was sent to the server with 0.0.25). 0.0.26 fixed Kodi losing the list after playback (the
+  service's `Container.Refresh` raced Kodi's own reload of the folder; now listings wait ≤ 3 s for
+  the last playback report instead). The shared watch state works end to end.
 - Continue watching only has titles played in the last 3 months (server-side, the user's choice:
   most of the Kodi history is 2023–24). v0.1 history had no dates, so it counts as old.
 - The debug signing key was regenerated on 2026-10-12 (`~/.android` had been deleted), so v0.3 was
@@ -20,8 +22,9 @@ the app's settings and, for builds, in `local.properties` (`sklk.serverUrl`, not
   later builds install over it with `adb install -r` again.
 - Related repos (sibling checkouts): backend `~/WebstormProjects/kodi-api-server` (pushing `main`
   deploys it, ~2–5 min, and restarts the server — ask first if the user may be using it), Kodi
-  add-on `~/WebstormProjects/plugin.video.sklk` (zip for Kodi: `git archive --prefix=plugin.video.sklk/`).
-  Each has its own notes.
+  add-on `~/WebstormProjects/plugin.video.sklk` (zip for Kodi: `git archive --prefix=plugin.video.sklk/`,
+  `adb push` it to the TV's `/sdcard/Download/`, the user installs it from there in Kodi). Each has
+  its own notes.
 - Git: `git@github.com:sakaljurgis/sklk-tv.git`.
 
 ## Rules
