@@ -17,8 +17,8 @@ android {
         applicationId = "lt.sklk.tv"
         minSdk = 23
         targetSdk = 36
-        versionCode = 3
-        versionName = "0.3"
+        versionCode = 4
+        versionName = "0.4"
 
         // `sklk.serverUrl=https://...` in local.properties presets the server, so it needn't be typed
         // with the remote; otherwise the app asks for it

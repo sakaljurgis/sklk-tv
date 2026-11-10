@@ -9,7 +9,8 @@ plugin.video.sklk): same JSON API (`/api?path=...`), native TV UI and player.
 
 - **Browse**: one list per api folder with a details panel for the focused item (duration, size,
   file name, watch progress, and the item's `thumb` image when the api provides one).
-  The remote's Back key goes up a level.
+  The remote's Back key goes up a level. A folder opened again starts at the item last focused in it
+  (e.g. Shows after a scan), as in Kodi; remembered while the app runs.
 - **Watched state is shared with Kodi**: the server keeps resume points and watched marks, so
   stopping an episode on Kodi and picking it up here (or the other way round) just works.
 - **Continue watching** (home screen, from the server): unfinished files and the next episode of shows

@@ -8,8 +8,8 @@ the app's settings and, for builds, in `local.properties` (`sklk.serverUrl`, not
 
 ## Status (2026-11-10)
 
-- **v0.3** (watch state on the server, shared with the Kodi add-on; server address as a setting) is
-  installed on the user's TV (a Sony BRAVIA, Android TV; it had v0.1 before; adb over the network:
+- **v0.4** (v0.3: watch state on the server, shared with the Kodi add-on; server address as a
+  setting; v0.4: a folder opened again starts at its last focused item) is installed on the user's TV (a Sony BRAVIA, Android TV; it had v0.1 before; adb over the network:
   `adb connect <tv-ip>:5555`, this adb has no `mdns` command). The backend is deployed. The main Kodi
   is the one on the same TV: add-on **0.0.26** is installed there (its earlier watched history, ~1.4k
   files, was sent to the server with 0.0.25). 0.0.26 fixed Kodi losing the list after playback (the
@@ -116,6 +116,9 @@ work by path; `all` is the old All Files menu. No posters/plots in the API yet.
   resume point seeks there. Continue watching items re-list their `folder` for the playlist.
 - `RowAdapter` uses stable ids + no item animator so focus survives full rebinds on refresh.
 - Folders refresh silently on return (>5 s since last load); unchanged listings aren't re-rendered.
+- Each folder remembers its focused row (id + position, by path + search) in `BrowseFragment.lastSelection`
+  for the app's lifetime, so opening it again (a new fragment) starts there, like Kodi. Leanback keeps
+  the focused row centred, so that restores the scroll too. Error/empty rows don't overwrite it.
 - ⋯ menu: hold OK (View long-click) or Menu key. `MenuAction.isDestructive` (regex
   `delete|remove|trin|šalin` on name or path) → confirmation dialog with Cancel focused.
 - Player keys while controls are hidden: OK = pause/play, Left/Right = seek 10 s (30 s/60 s when held);

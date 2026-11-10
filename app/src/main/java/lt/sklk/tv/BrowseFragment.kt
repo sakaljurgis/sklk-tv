@@ -42,14 +42,25 @@ class BrowseFragment : Fragment(R.layout.fragment_browse) {
     private var loadedAt = 0L
     private var busyCount = 0
 
+    // the focused row; kept for this folder (see [lastSelection])
     private var selectedId: String? = null
     private var selectedIndex = 0
+    private val folderKey get() = path + "\n" + search.orEmpty()
 
     private var list: VerticalGridView? = null
     private var details: DetailsPanel? = null
     private var loading: View? = null
     private var count: TextView? = null
     private val showLoading = Runnable { loading?.visibility = View.VISIBLE }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        // opened again (e.g. Shows after a scan): where it was left, like Kodi does
+        lastSelection[folderKey]?.let { (id, index) ->
+            selectedId = id
+            selectedIndex = index
+        }
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -64,9 +75,11 @@ class BrowseFragment : Fragment(R.layout.fragment_browse) {
             it.setOnChildViewHolderSelectedListener(object : OnChildViewHolderSelectedListener() {
                 override fun onChildViewHolderSelected(parent: RecyclerView, child: RecyclerView.ViewHolder?, position: Int, subposition: Int) {
                     val row = adapter.rows.getOrNull(position)
-                    if (row != null) {
+                    // not an error / empty notice: after a failed load, it should still come back to where it was
+                    if (row != null && row !is Row.Info) {
                         selectedId = row.id
                         selectedIndex = position
+                        lastSelection[folderKey] = row.id to position
                     }
                     details?.bind(row)
                 }
@@ -481,6 +494,12 @@ class BrowseFragment : Fragment(R.layout.fragment_browse) {
         private const val ARG_SEARCH = "search"
         private const val ARG_CRUMBS = "crumbs"
         private const val REFRESH_AFTER_MS = 5_000L
+
+        /**
+         * The focused row (id, position) per folder (path + search), while the app runs: a folder
+         * opened again starts there instead of at the top. Folders still on the back stack keep their own.
+         */
+        private val lastSelection = HashMap<String, Pair<String, Int>>()
 
         /** [crumbs]: folder titles from home down to this one, for the breadcrumb. */
         fun newInstance(path: String, crumbs: List<String>, search: String? = null) = BrowseFragment().apply {
