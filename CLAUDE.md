@@ -79,7 +79,7 @@ Response handling, same precedence as the web UI's `processApiResult()`:
 
 Item fields: `label`, `path`, `isFolder`, `IsPlayable`/`isPlayable`, `mediatype: "video"`,
 `action` (`"search"` | `"query"`), `plot` (multi-line, e.g. `"Size 3.28 GB\nLM + transm"`),
-`size` (bytes), `duration` (s), `thumb` (url), `searchFor`,
+`size` (bytes), `duration` (s), `thumb` (poster url), `fanart` (backdrop url), `searchFor`,
 `contextMenus: [{name, urlParams: {action: "query", path}}]`.
 Watch state (server-side, shared with Kodi): files `playcount` (> 0 = watched), `resume {position,
 total}` (s), `lastplayed`; folders `watchedCount`/`totalCount`; Continue watching items `folder`,
@@ -98,7 +98,9 @@ state. The server decides watched (≥ 90 % or `end`) and ignores positions < 10
 Tree (new backend): root → Continue watching (`all/continue`) / Movies (`all/movie`, ~213 folders
 `all/<id>`, 1–26 files each) / Shows (`all/show`, ~56; show → `"N Sezonas"` → episode files, in
 episode order) / Scan items. **Torr** (`torr`) and **LRT.lt** (`lrt`) are unlisted (unused) but still
-work by path; `all` is the old All Files menu. No posters/plots in the API yet.
+work by path; `all` is the old All Files menu. Posters (`thumb`) and backdrops (`fanart`) from TMDB
+on every `all/*` item (full `image.tmdb.org` urls; each movie file its own film's, seasons their
+season poster, episodes their season's); no plots (the server's `plot` is still size/torrent info).
 
 ## Design notes
 
@@ -127,8 +129,9 @@ work by path; `all` is the old All Files menu. No posters/plots in the API yet.
 
 ## Backlog (discussed with the user)
 
-- **Posters & plots**: will come from the backend. Put the image url in the item's `thumb` — the
-  details panel already shows it. Maybe later a poster grid for Movies.
+- **Posters**: done server-side (2026-11-11), `thumb` is a poster now and the details panel shows it.
+  Not used yet: `fanart` (backdrop, could fill the background), a poster grid for Movies. Plots: the
+  user doesn't want them for now.
 - Search across Movies + Shows (client-side filter, voice if the remote has a mic).
 - Preferred audio/subtitle languages (e.g. LT, then EN), picked automatically.
 - **Player improvements**: findings + suggestions (overlay, seeking, buffer, tracks, chapters/skip
