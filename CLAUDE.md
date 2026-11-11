@@ -31,8 +31,9 @@ the app's settings and, for builds, in `local.properties` (`sklk.serverUrl`, not
 
 - **The API is live and personal.** Reading listings is fine. Never call state-changing paths while
   exploring/testing: `all/delete/<id>`, `/torr/delete/<id>`, `/torr/stop-transmission/<id>`,
-  `all/scan`, `all/scan-all`, `torr/search/...` (records recent searches), and the watch state ones
-  (`POST /api/state/<id>`, `all/watched|unwatched|hide/...`) — playing anything in the app writes
+  `all/scan`, `all/scan-all`, `torr/search/...` (records recent searches), `all/hide-file|hide-version/...`
+  (hides files from every list), and the watch state ones (`POST /api/state/<id>`,
+  `all/watched|unwatched|hide/...`, `all/watched-title|unwatched-title/...`) — playing anything in the app writes
   those, so test playback against a local backend (see Testing).
 - Lint must pass — `lintDebug` fails the build on errors.
 
@@ -133,5 +134,8 @@ work by path; `all` is the old All Files menu. No posters/plots in the API yet.
 - **Player improvements**: findings + suggestions (overlay, seeking, buffer, tracks, chapters/skip
   intro, next-up, ...) in `docs/player-improvements.md` — not started, user to pick what to build.
 - Smaller things: proper release signing (release uses the debug key), possibly newer media3 once a
-  matching FFmpeg decoder exists. Server-side: duplicate releases and `.sample.` files are listed;
-  "Recently added".
+  matching FFmpeg decoder exists.
+- Done server-side (2026-11-11, no app change needed, the app renders them as plain items/menus):
+  samples are never listed, a season with the same episode from several releases lists one folder
+  per release, specials are season 0 ("Specials", last), "Recently added" in the root menu, and
+  "Hide from library" / "Hide this version" context menus (undo on the server's `/library` page).
